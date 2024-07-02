@@ -1,0 +1,8 @@
+---
+- name: Ansible AWX with Galaxy sample
+  hosts: all
+  vars:
+    pip_install_packages:
+      - name: awscli
+  roles:
+    - geerlingguy.pip
