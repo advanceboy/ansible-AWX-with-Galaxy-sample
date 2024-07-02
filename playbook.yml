@@ -2,7 +2,6 @@
 - name: Ansible AWX with Galaxy sample
   hosts: all
   vars:
-    pip_install_packages:
-      - name: awscli
+    php_enable_webserver: false
   roles:
-    - geerlingguy.pip
+    - role: geerlingguy.php
