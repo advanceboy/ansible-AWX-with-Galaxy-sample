@@ -4,4 +4,4 @@
   vars:
     php_enable_webserver: false
   roles:
-    - role: geerlingguy.php
+    - role: geerlingguy.php_roles.php
