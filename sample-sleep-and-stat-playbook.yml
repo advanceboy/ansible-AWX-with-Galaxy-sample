@@ -1,0 +1,31 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: sleep any seconds
+      ansible.builtin.shell: >-
+        /usr/bin/sleep {{ sleep_seconds | default(3) }}
+      register: result_sleep
+    - debug: var=result_sleep
+
+    - when: local_stat_path is defined
+      block:
+        - name: get stat of local {{ local_stat_path }}
+          local_action:
+            module: ansible.builtin.stat
+            path: '{{ local_stat_path }}'
+          register: result_local_stat
+        - debug: var=result_local_stat
+        - ansible.builtin.assert:
+            that:
+              - result_local_stat.stat.exists
+
+    - when: remote_stat_path is defined
+      block:
+        - name: get stat of remote {{ remote_stat_path }}
+          ansible.builtin.stat:
+            path: '{{ remote_stat_path }}'
+          register: result_remote_stat
+        - debug: var=result_remote_stat
+        - ansible.builtin.assert:
+            that:
+              - result_remote_stat.stat.exists
